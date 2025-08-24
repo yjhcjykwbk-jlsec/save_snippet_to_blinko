@@ -42,7 +42,13 @@ export function formatSnippetAsMarkdown(snippet: {
 	filePath: string;
 	githubUrl: string;
 }): string {
-	let markdown = `# Code Snippet\n\n`;
+	let markdown = `# ` + extractRepoName(snippet.githubUrl);
+
+	// 添加笔记
+	if (snippet.note) {
+		markdown += `## Notes\n\n`;
+		markdown += `${snippet.note}\n`;
+	}
 
 	// 添加文件信息
 	markdown += `**File:** ${snippet.filePath}\n\n`;
@@ -57,11 +63,6 @@ export function formatSnippetAsMarkdown(snippet: {
 	markdown += `${snippet.content}\n`;
 	markdown += `\`\`\`\n\n`;
 
-	// 添加笔记
-	if (snippet.note) {
-		markdown += `## Notes\n\n`;
-		markdown += `${snippet.note}\n`;
-	}
 	markdown += `#`+extractRepoName(snippet.githubUrl)+ `\n`
 
 	return markdown;

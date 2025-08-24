@@ -21,45 +21,6 @@ export class NoteCloudClient {
 		});
 	}
 
-
-	snippetToMarkdown(snippet: Snippet): string {
-		// 格式化时间戳为可读性更强的格式
-		const formattedDate = new Date(snippet.timestamp).toLocaleString();
-
-		// 构建Markdown内容
-		const markdownParts: string[] = [];
-
-		// 标题部分 - 使用文件路径作为主标题
-		markdownParts.push(`# 代码片段: ${snippet.filePath.split('/').pop() || 'unknown'}`);
-
-		// 元信息部分 - 使用表格展示关键信息
-		markdownParts.push('## 元信息');
-		markdownParts.push('| 项目 | 内容 |');
-		markdownParts.push('|------|------|');
-		markdownParts.push(`| 文件路径 | \`${snippet.filePath}\` |`);
-		if (snippet.githubUrl) {
-			markdownParts.push(`| GitHub 链接 | [查看代码](${snippet.githubUrl}) |`);
-		}
-		markdownParts.push(`| 语言 | ${snippet.language} |`);
-		markdownParts.push(`| 保存时间 | ${formattedDate} |`);
-
-		// 代码内容部分 - 使用对应语言的代码块
-		markdownParts.push('\n## 代码内容');
-		markdownParts.push(`\`\`\`${snippet.language || 'plaintext'}`);
-		markdownParts.push(snippet.content);
-		markdownParts.push('```');
-
-		// 笔记部分 - 如果有笔记内容则添加
-		if (snippet.note && snippet.note.trim()) {
-			markdownParts.push('\n## 笔记');
-			markdownParts.push(snippet.note);
-		}
-
-		// 拼接所有部分并返回
-		return markdownParts.join('\n');
-	}
-
-
 	/**
 	 * 保存代码片段到笔记云
 	 * @param snippet 代码片段信息

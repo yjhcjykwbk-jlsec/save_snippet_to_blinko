@@ -42,12 +42,12 @@ export function formatSnippetAsMarkdown(snippet: {
 	filePath: string;
 	githubUrl: string;
 }): string {
-	let markdown = `# ` + extractRepoName(snippet.githubUrl);
+	let markdown = `# ` + extractRepoName(snippet.githubUrl) + `\n`;
 
 	// 添加笔记
 	if (snippet.note) {
-		markdown += `## Notes\n\n`;
-		markdown += `${snippet.note}\n`;
+		//markdown += `## Notes\n`;
+		markdown += `${snippet.note}\n\n`;
 	}
 
 	// 添加文件信息
